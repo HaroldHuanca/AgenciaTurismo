@@ -2,18 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Paquete extends Model
+class Destino extends Model
 {
+    /** @use HasFactory<\Database\Factories\DestinoFactory> */
     use HasFactory;
 
     protected $fillable = [
         'nombre',
         'descripcion',
-        'precio',
-        'fecha_inicio',
-        'fecha_fin',
+        'ubicacion',
     ];
 }

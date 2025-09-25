@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ventas', function (Blueprint $table) {
+        Schema::create('reservas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
-            $table->foreignId('paquete_id')->constrained('paquetes')->onDelete('cascade');
-            $table->integer('cantidad')->default(1);
-            $table->decimal('total', 10, 2);
-            $table->date('fecha_venta');
+            $table->foreignId('paquete_turistico_id')->constrained('paquete_turisticos')->onDelete('cascade');
+            $table->date('fecha_viaje');
+            $table->integer('num_personas');
+            $table->decimal('total_precio', 10, 2);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('reservas');
     }
 };
