@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('tipo'); // Ej: "Transporte", "Hotel", "Guía"
             $table->string('contacto')->nullable(); // Email o teléfono
+            $table->decimal('comision_agencia', 5, 2); // Comisión en porcentaje
             $table->timestamps();
         });
     }

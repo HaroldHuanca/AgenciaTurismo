@@ -21,7 +21,10 @@ class PaqueteTuristicoFactory extends Factory
             'descripcion' => $this->faker->paragraph(),
             'precio' => $this->faker->randomFloat(2, 100, 5000),
             'duracion' => $this->faker->numberBetween(2, 14),
+            'destino' => $this->faker->city(),
             'fecha_inicio' => $this->faker->dateTimeBetween('now', '+6 months')->format('Y-m-d'),
+            'capacidad_maxima' => $this->faker->numberBetween(10, 100),
+            'estado' => $this->faker->boolean(80), // 80% prob
         ];
     }
 }

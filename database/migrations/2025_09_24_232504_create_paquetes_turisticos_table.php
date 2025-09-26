@@ -17,7 +17,10 @@ return new class extends Migration
             $table->text('descripcion')->nullable();
             $table->decimal('precio', 10, 2);
             $table->integer('duracion'); // en días
+            $table->string('destino');
             $table->date('fecha_inicio');
+            $table->integer('capacidad_maxima');
+            $table->boolean('estado')->default(true); // true = activo, false = in
             $table->timestamps();
         });
     }

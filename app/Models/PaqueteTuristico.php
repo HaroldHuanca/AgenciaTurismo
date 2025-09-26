@@ -15,11 +15,16 @@ class PaqueteTuristico extends Model
         'descripcion',
         'precio',
         'duracion',
+        'destino',
         'fecha_inicio',
+        'capacidad_maxima',
+        'estado',
     ];
 
     protected $casts = [
         'precio' => 'decimal:2',
         'fecha_inicio' => 'date',
+        'capacidad_maxima' => 'integer',
+        'estado' => 'boolean',
     ];
 }

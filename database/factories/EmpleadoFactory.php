@@ -18,10 +18,10 @@ class EmpleadoFactory extends Factory
     {
         return [
             'nombre' => $this->faker->name(),
+            'rol' => $this->faker->randomElement(['Administrador', 'Agente de Viajes', 'Soporte', 'Marketing']),
             'email' => $this->faker->unique()->safeEmail(),
-            'telefono' => $this->faker->optional()->phoneNumber(),
-            'cargo' => $this->faker->randomElement(['Guía', 'Vendedor', 'Conductor', 'Asistente']),
-            'estado' => $this->faker->boolean(90), // 90% probabilidad de activo
+            'comision' => $this->faker->randomFloat(2, 0, 20), // Comisión entre 0% y 20%
+                      
         ];
     }
 }

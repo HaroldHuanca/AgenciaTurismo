@@ -16,5 +16,6 @@ class Proveedor extends Model
         'nombre',
         'tipo',
         'contacto',
+        'comision_agencia',
     ];
 }

@@ -12,13 +12,8 @@ class Empleado extends Model
 
    protected $fillable = [
         'nombre',
+        'rol',
         'email',
-        'telefono',
-        'cargo',
-        'estado',
-    ];
-
-    protected $casts = [
-        'estado' => 'boolean',
+        'comision',
     ];
 }

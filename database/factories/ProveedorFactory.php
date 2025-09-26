@@ -20,6 +20,7 @@ class ProveedorFactory extends Factory
             'nombre' => $this->faker->company(),
             'tipo' => $this->faker->randomElement(['Transporte', 'Hotel', 'Guía', 'Agencia', 'Restaurante']),
             'contacto' => $this->faker->phoneNumber(),
+            'comision_agencia' => $this->faker->randomFloat(2, 5, 20), // Comisión entre 5% y 20%
         ];
     }
 }

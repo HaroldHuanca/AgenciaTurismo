@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('empleados', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('rol'); // rol del empleado (e.g., administrador, agente de viajes)
             $table->string('email')->unique();
-            $table->string('telefono')->nullable();
-            $table->string('cargo'); // puesto del empleado
-            $table->boolean('estado')->default(true);
+            $table->string('comision'); // puesto del empleado
             $table->timestamps();
         });
     }
