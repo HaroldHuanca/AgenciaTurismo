@@ -21,10 +21,6 @@ class DatabaseSeeder extends Seeder
         Cliente::factory(15)->create();
         Empleado::factory(5)->create();
         PaqueteTuristico::factory(8)->create();
-        Destino::factory(10)->create();
         Proveedor::factory(5)->create();
-
-        // Luego las reservas (dependen de clientes y paquetes)
-        Reserva::factory(20)->create();
     }
 }
