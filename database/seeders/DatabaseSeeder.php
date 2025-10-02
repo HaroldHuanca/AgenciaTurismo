@@ -9,6 +9,7 @@ use App\Models\PaqueteTuristico;
 use App\Models\Destino;
 use App\Models\Proveedor;
 use App\Models\Reserva;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +18,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Primero creamos datos independientes
+        // Primero creamos usuarios
+        $this->call(UserSeeder::class);
+        
+        // Luego creamos datos independientes
         Cliente::factory(15)->create();
         Empleado::factory(5)->create();
         PaqueteTuristico::factory(8)->create();
