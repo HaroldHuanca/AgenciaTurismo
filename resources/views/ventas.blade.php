@@ -239,6 +239,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="#" class="nav-link" data-module="proveedores">
+                            <i class="fas fa-handshake"></i>
+                            <span class="d-none d-md-inline">Proveedores</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link" data-module="reportes">
                             <i class="fas fa-chart-bar"></i>
                             <span class="d-none d-md-inline">Reportes</span>
@@ -655,9 +661,66 @@
                         <i class="fas fa-info-circle me-2"></i>Módulo de reportes - En construcción
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
+                <!-- Proveedores Module -->
+                <div id="proveedores" class="module-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3>Gestión de Proveedores</h3>
+                        <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#addProviderModal">
+                            <i class="fas fa-plus me-2"></i>Nuevo Proveedor
+                        </button>
+                    </div>
+                    <div class="card card-custom">
+                        <div class="card-header bg-white">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <h5 class="card-title mb-0">Lista de Proveedores</h5>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Servicio</th>
+                                                        <th>Contacto</th>
+                                                        <th>Teléfono</th>
+                                                        <th>Email</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Proveedor A</td>
+                                                        <td>Transporte</td>
+                                                        <td>Juan Pérez</td>
+                                                        <td>+1 234 567 893</td>
+                                                        <td><a href="mailto:juan.perez@example.com">juan.perez@example.com</a></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                            <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></      button>
+                                                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Proveedor B</td>
+                                                        <td>Alojamiento</td>
+                                                        <td>María López</td>
+                                                        <td>+1 234 567 894</td>
+                                                        <td><a href="mailto:maria.lopez@example.com">maria.lopez@example.com</a></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                            <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
     <!-- Add Client Modal -->
     <div class="modal fade" id="addClientModal" tabindex="-1" aria-hidden="true">
