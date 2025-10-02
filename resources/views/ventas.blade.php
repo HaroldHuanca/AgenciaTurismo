@@ -227,7 +227,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" data-module="ventas">
+                        <a href="{{ url('/ventas') }}" class="nav-link" data-module="ventas">
                             <i class="fas fa-shopping-cart"></i>
                             <span class="d-none d-md-inline">Ventas</span>
                         </a>
