@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Cliente;
 use App\Models\Paquete;
+use App\Models\PaqueteTuristico;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Venta>
@@ -19,7 +20,7 @@ class VentaFactory extends Factory
     public function definition(): array
     {
         $cliente = Cliente::inRandomOrder()->first() ?? Cliente::factory()->create();
-        $paquete = Paquete::inRandomOrder()->first() ?? Paquete::factory()->create();
+        $paquete = PaqueteTuristico::inRandomOrder()->first() ?? PaqueteTuristico::factory()->create();
         $cantidad = $this->faker->numberBetween(1, 5);
 
         return [
