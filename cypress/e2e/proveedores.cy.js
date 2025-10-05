@@ -1,7 +1,7 @@
 describe('Página de Proveedores', () => {
   it('debería mostrar la lista de proveedores', () => {
     // Ajusta el puerto según donde corras Laravel (php artisan serve)
-    cy.visit('http://127.0.0.1:8000/proveedores');
+    cy.visit('http://agencia-turismo.test/ventas');
 
     // Verificar que el título existe
     cy.contains('Lista de Proveedores');
