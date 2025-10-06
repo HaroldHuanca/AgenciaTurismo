@@ -2,47 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // Mostrar formulario de login
+    public function __construct()
+    {
+        $this->middleware('guest')->except(['logout', 'dashboard']);
+        $this->middleware('auth')->only(['logout', 'dashboard']);
+    }
+
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    // Procesar login
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
+            'email' => ['required','email'],
+            'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/ventas');
+            return redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors([
-            'email' => 'Las credenciales no coinciden con nuestros registros.',
-        ]);
+        return back()->withErrors(['email' => 'Credenciales inválidas'])->onlyInput('email');
     }
 
-    // Cerrar sesión
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/login');
     }
 
-    // Mostrar dashboard
     public function dashboard()
     {
         return view('dashboard');

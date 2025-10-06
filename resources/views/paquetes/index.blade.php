@@ -1,78 +1,101 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Clientes')
+@section('title', 'Gestión de Paquetes Turísticos')
 
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Gestión de Clientes</h1>
-        <a href="{{ route('clientes.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Nuevo Cliente
+        <h1 class="h3 mb-0 text-gray-800">Gestión de Paquetes Turísticos</h1>
+        <a href="{{ route('paquetes.create') }}" class="btn btn-primary">
+            <i class="fas fa-suitcase-rolling"></i> Nuevo Paquete
         </a>
     </div>
 
     <!-- Card -->
     <div class="card shadow">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista de Clientes</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Lista de Paquetes Turísticos</h6>
         </div>
         <div class="card-body">
-            @if($clientes->count() > 0)
+            @if($paquetes->count() > 0)
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Email</th>
-                                <th>Teléfono</th>
+                                <th>Destino</th>
+                                <th>Precio</th>
+                                <th>Duración</th>
+                                <th>Fecha Inicio</th>
+                                <th>Capacidad</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($clientes as $cliente)
+                            @foreach($paquetes as $paquete)
                             <tr>
-                                <td>{{ $cliente->id }}</td>
-                                <td>{{ $cliente->nombre }}</td>
-                                <td>{{ $cliente->apellido }}</td>
+                                <td>{{ $paquete->id }}</td>
                                 <td>
-                                    @if($cliente->email)
-                                        <a href="mailto:{{ $cliente->email }}">{{ $cliente->email }}</a>
+                                    <strong>{{ $paquete->nombre }}</strong>
+                                    @if($paquete->descripcion)
+                                        <br><small class="text-muted">{{ Str::limit($paquete->descripcion, 50) }}</small>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($paquete->destino)
+                                        <span class="badge bg-info">{{ $paquete->destino }}</span>
                                     @else
                                         <span class="text-muted">No especificado</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($cliente->telefono)
-                                        <a href="tel:{{ $cliente->telefono }}">{{ $cliente->telefono }}</a>
+                                    <span class="fw-bold text-success">${{ number_format($paquete->precio, 2) }}</span>
+                                </td>
+                                <td>
+                                    @if($paquete->duracion)
+                                        {{ $paquete->duracion }}
                                     @else
                                         <span class="text-muted">No especificado</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($paquete->fecha_inicio)
+                                        {{ \Carbon\Carbon::parse($paquete->fecha_inicio)->format('d/m/Y') }}
+                                    @else
+                                        <span class="text-muted">No especificado</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($paquete->capacidad_maxima)
+                                        <span class="badge bg-warning text-dark">{{ $paquete->capacidad_maxima }} personas</span>
+                                    @else
+                                        <span class="text-muted">Ilimitado</span>
                                     @endif
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('clientes.show', $cliente) }}" 
+                                        <a href="{{ route('paquetes.show', $paquete) }}" 
                                            class="btn btn-info btn-sm" 
                                            data-bs-toggle="tooltip" 
                                            title="Ver detalles">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('clientes.edit', $cliente) }}" 
+                                        <a href="{{ route('paquetes.edit', $paquete) }}" 
                                            class="btn btn-warning btn-sm" 
                                            data-bs-toggle="tooltip" 
                                            title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('clientes.destroy', $cliente) }}" 
+                                        <form action="{{ route('paquetes.destroy', $paquete) }}" 
                                               method="POST" 
-                                              id="delete-form-{{ $cliente->id }}" 
+                                              id="delete-form-{{ $paquete->id }}" 
                                               class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" 
                                                     class="btn btn-danger btn-sm" 
-                                                    onclick="confirmDelete('delete-form-{{ $cliente->id }}', '{{ $cliente->nombre }} {{ $cliente->apellido }}')"
+                                                    onclick="confirmDelete('delete-form-{{ $paquete->id }}', '{{ $paquete->nombre }}')"
                                                     data-bs-toggle="tooltip" 
                                                     title="Eliminar">
                                                 <i class="fas fa-trash"></i>
@@ -89,17 +112,17 @@
                 <!-- Paginación -->
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="text-muted">
-                        Mostrando {{ $clientes->firstItem() }} a {{ $clientes->lastItem() }} de {{ $clientes->total() }} registros
+                        Mostrando {{ $paquetes->firstItem() }} a {{ $paquetes->lastItem() }} de {{ $paquetes->total() }} registros
                     </div>
-                    {{ $clientes->links() }}
+                    {{ $paquetes->links() }}
                 </div>
             @else
                 <div class="text-center py-5">
-                    <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                    <h4 class="text-muted">No hay clientes registrados</h4>
-                    <p class="text-muted">Comienza agregando tu primer cliente.</p>
-                    <a href="{{ route('clientes.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Agregar Primer Cliente
+                    <i class="fas fa-suitcase-rolling fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">No hay paquetes turísticos registrados</h4>
+                    <p class="text-muted">Comienza agregando tu primer paquete turístico.</p>
+                    <a href="{{ route('paquetes.create') }}" class="btn btn-primary">
+                        <i class="fas fa-suitcase-rolling"></i> Agregar Primer Paquete
                     </a>
                 </div>
             @endif
@@ -110,10 +133,10 @@
 
 @section('scripts')
 <script>
-    function confirmDelete(formId, clienteName) {
+    function confirmDelete(formId, paqueteName) {
         Swal.fire({
             title: '¿Estás seguro?',
-            html: `Estás por eliminar al cliente: <strong>"${clienteName}"</strong><br>Esta acción no se puede deshacer.`,
+            html: `Estás por eliminar el paquete: <strong>"${paqueteName}"</strong><br>Esta acción no se puede deshacer.`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',

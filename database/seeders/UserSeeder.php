@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         // Crear usuario administrador
         User::create([
             'name' => 'Administrador',
-            'email' => 'admin@tourcrm.com',
+            'email' => 'admin@agencia.com',
             'password' => Hash::make('password123'),
             'email_verified_at' => now(),
         ]);
@@ -24,8 +24,8 @@ class UserSeeder extends Seeder
         // Crear usuario de prueba
         User::create([
             'name' => 'Usuario Demo',
-            'email' => 'demo@tourcrm.com',
-            'password' => Hash::make('demo123'),
+            'email' => 'usuario@agencia.com',
+            'password' => Hash::make('password123'),
             'email_verified_at' => now(),
         ]);
 

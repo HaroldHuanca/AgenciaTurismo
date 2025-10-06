@@ -1,78 +1,86 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Clientes')
+@section('title', 'Gestión de Proveedores')
 
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Gestión de Clientes</h1>
-        <a href="{{ route('clientes.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Nuevo Cliente
+        <h1 class="h3 mb-0 text-gray-800">Gestión de Proveedores</h1>
+        <a href="{{ route('proveedores.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nuevo Proveedor
         </a>
     </div>
 
     <!-- Card -->
     <div class="card shadow">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista de Clientes</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Lista de Proveedores</h6>
         </div>
         <div class="card-body">
-            @if($clientes->count() > 0)
+            @if($proveedores->count() > 0)
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Email</th>
-                                <th>Teléfono</th>
+                                <th>Tipo</th>
+                                <th>Contacto</th>
+                                <th>Comisión Agencia</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($clientes as $cliente)
+                            @foreach($proveedores as $proveedor)
                             <tr>
-                                <td>{{ $cliente->id }}</td>
-                                <td>{{ $cliente->nombre }}</td>
-                                <td>{{ $cliente->apellido }}</td>
+                                <td>{{ $proveedor->id }}</td>
                                 <td>
-                                    @if($cliente->email)
-                                        <a href="mailto:{{ $cliente->email }}">{{ $cliente->email }}</a>
+                                    <strong>{{ $proveedor->nombre }}</strong>
+                                </td>
+                                <td>
+                                    @if($proveedor->tipo)
+                                        <span class="badge bg-info">{{ $proveedor->tipo }}</span>
                                     @else
                                         <span class="text-muted">No especificado</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($cliente->telefono)
-                                        <a href="tel:{{ $cliente->telefono }}">{{ $cliente->telefono }}</a>
+                                    @if($proveedor->contacto)
+                                        {{ $proveedor->contacto }}
+                                    @else
+                                        <span class="text-muted">No especificado</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($proveedor->comision_agencia)
+                                        <span class="badge bg-success">{{ $proveedor->comision_agencia }}%</span>
                                     @else
                                         <span class="text-muted">No especificado</span>
                                     @endif
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('clientes.show', $cliente) }}" 
+                                        <a href="{{ route('proveedores.show', $proveedor) }}" 
                                            class="btn btn-info btn-sm" 
                                            data-bs-toggle="tooltip" 
                                            title="Ver detalles">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('clientes.edit', $cliente) }}" 
+                                        <a href="{{ route('proveedores.edit', $proveedor) }}" 
                                            class="btn btn-warning btn-sm" 
                                            data-bs-toggle="tooltip" 
                                            title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('clientes.destroy', $cliente) }}" 
+                                        <form action="{{ route('proveedores.destroy', $proveedor) }}" 
                                               method="POST" 
-                                              id="delete-form-{{ $cliente->id }}" 
+                                              id="delete-form-{{ $proveedor->id }}" 
                                               class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" 
                                                     class="btn btn-danger btn-sm" 
-                                                    onclick="confirmDelete('delete-form-{{ $cliente->id }}', '{{ $cliente->nombre }} {{ $cliente->apellido }}')"
+                                                    onclick="confirmDelete('delete-form-{{ $proveedor->id }}', '{{ $proveedor->nombre }}')"
                                                     data-bs-toggle="tooltip" 
                                                     title="Eliminar">
                                                 <i class="fas fa-trash"></i>
@@ -89,17 +97,17 @@
                 <!-- Paginación -->
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="text-muted">
-                        Mostrando {{ $clientes->firstItem() }} a {{ $clientes->lastItem() }} de {{ $clientes->total() }} registros
+                        Mostrando {{ $proveedores->firstItem() }} a {{ $proveedores->lastItem() }} de {{ $proveedores->total() }} registros
                     </div>
-                    {{ $clientes->links() }}
+                    {{ $proveedores->links() }}
                 </div>
             @else
                 <div class="text-center py-5">
-                    <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                    <h4 class="text-muted">No hay clientes registrados</h4>
-                    <p class="text-muted">Comienza agregando tu primer cliente.</p>
-                    <a href="{{ route('clientes.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Agregar Primer Cliente
+                    <i class="fas fa-truck fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">No hay proveedores registrados</h4>
+                    <p class="text-muted">Comienza agregando tu primer proveedor.</p>
+                    <a href="{{ route('proveedores.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Agregar Primer Proveedor
                     </a>
                 </div>
             @endif
@@ -110,10 +118,10 @@
 
 @section('scripts')
 <script>
-    function confirmDelete(formId, clienteName) {
+    function confirmDelete(formId, proveedorName) {
         Swal.fire({
             title: '¿Estás seguro?',
-            html: `Estás por eliminar al cliente: <strong>"${clienteName}"</strong><br>Esta acción no se puede deshacer.`,
+            html: `Estás por eliminar al proveedor: <strong>"${proveedorName}"</strong><br>Esta acción no se puede deshacer.`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
