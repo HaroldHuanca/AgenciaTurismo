@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         
         // Luego creamos datos independientes
+        User::factory(2)->create();
         Cliente::factory(15)->create();
         Empleado::factory(5)->create();
         PaqueteTuristico::factory(8)->create();
