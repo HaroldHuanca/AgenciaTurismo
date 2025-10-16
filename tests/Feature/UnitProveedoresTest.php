@@ -12,8 +12,7 @@ class UnitProveedoresTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function el_usuario_admin_puede_iniciar_sesion_con_credenciales_reales()
+    public function test_el_usuario_admin_puede_iniciar_sesion_con_credenciales_reales()
     {
         // Crear un usuario real en la BD de pruebas
         $user = User::create([
@@ -33,8 +32,7 @@ class UnitProveedoresTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    /** @test */
-    public function se_puede_crear_un_proveedor()
+    public function test_se_puede_crear_un_proveedor()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -53,8 +51,7 @@ class UnitProveedoresTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function se_puede_listar_proveedores()
+    public function test_se_puede_listar_proveedores()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -66,8 +63,7 @@ class UnitProveedoresTest extends TestCase
         $response->assertSee('proveedores');
     }
 
-    /** @test */
-    public function se_puede_actualizar_un_proveedor()
+    public function test_se_puede_actualizar_un_proveedor()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -91,8 +87,7 @@ class UnitProveedoresTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function se_puede_eliminar_un_proveedor()
+    public function test_se_puede_eliminar_un_proveedor()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
