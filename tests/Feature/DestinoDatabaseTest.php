@@ -7,22 +7,22 @@ use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ProveedorDatabaseTest extends TestCase
+class DestinoDatabaseTest extends TestCase
 {
-    use RefreshDatabase;
+     use RefreshDatabase;
 
     #[Test]
-    public function se_puede_conectar_y_consultar_proveedores()
+    public function se_puede_conectar_y_consultar_destinos()
     {
         // Verifica que la conexión a la BD funcione
         $this->assertTrue(DB::connection()->getPdo() !== null, 'No se pudo establecer conexión a la base de datos');
 
-        // Intenta consultar la tabla proveedores
+        // Intenta consultar la tabla destinos
         try {
-            $proveedores = DB::table('proveedores')->get();
-            $this->assertIsObject($proveedores, 'La consulta no devolvió un objeto válido');
+            $destinos = DB::table('destinos')->get();
+            $this->assertIsObject($destinos, 'La consulta no devolvió un objeto válido');
         } catch (\Exception $e) {
-            $this->fail("No se pudo consultar la tabla proveedores: " . $e->getMessage());
+            $this->fail("No se pudo consultar la tabla destinos: " . $e->getMessage());
         }
     }
 }
