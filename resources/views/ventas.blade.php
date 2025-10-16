@@ -277,14 +277,21 @@
                         
                         <div class="dropdown">
                             <a href="#" class="dropdown-toggle text-decoration-none" id="profileDropdown" data-bs-toggle="dropdown">
-                                <img src="https://ui-avatars.com/api/?name=Usuario&background=E7473C&color=fff" alt="Usuario" class="profile-img">
-                                <span class="ms-2 d-none d-md-inline">Usuario</span>
+                                <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&background=E7473C&color=fff" alt="{{ Auth::user()->name }}" class="profile-img">
+                                <span class="ms-2 d-none d-md-inline">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Perfil</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Configuración</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión</a></li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión
+                                        </button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -298,7 +305,7 @@
                     <div class="welcome-banner">
                         <div class="row align-items-center">
                             <div class="col-md-8">
-                                <h3>¡Bienvenido de nuevo!</h3>
+                                <h3>¡Bienvenido de nuevo, {{ Auth::user()->name }}!</h3>
                                 <p class="mb-0">Aquí tienes un resumen de las operaciones de tu agencia de turismo.</p>
                             </div>
                             <div class="col-md-4 text-md-end">
@@ -478,74 +485,62 @@
                     </div>
 
                     <div class="card card-custom">
-                        <div class="card-header bg-white">
-                            <div class="row align-items-center">
-                                <div class="col-md-6">
-                                    <h5 class="card-title mb-0">Lista de Clientes</h5>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="search-box">
-                                        <i class="fas fa-search"></i>
-                                        <input type="text" class="form-control" placeholder="Buscar cliente...">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Email</th>
-                                            <th>Teléfono</th>
-                                            <th>Última reserva</th>
-                                            <th>Estado</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>María García</td>
-                                            <td>maria@example.com</td>
-                                            <td>+1 234 567 890</td>
-                                            <td>15/08/2023</td>
-                                            <td><span class="badge bg-success">Activo</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
-                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Carlos López</td>
-                                            <td>carlos@example.com</td>
-                                            <td>+1 234 567 891</td>
-                                            <td>22/09/2023</td>
-                                            <td><span class="badge bg-success">Activo</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
-                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ana Rodríguez</td>
-                                            <td>ana@example.com</td>
-                                            <td>+1 234 567 892</td>
-                                            <td>05/10/2023</td>
-                                            <td><span class="badge bg-warning">Inactivo</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
-                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+    <div class="card-header bg-white">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h5 class="card-title mb-0">Lista de Clientes</h5>
+            </div>
+            <div class="col-md-6">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="form-control" placeholder="Buscar cliente...">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Última reserva</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($clientes as $cliente)
+                        <tr>
+                            <td>{{ $cliente->nombre }}</td>
+                            <td>{{ $cliente->email }}</td>
+                            <td>{{ $cliente->telefono }}</td>
+                            <td>{{ $cliente->ultima_reserva ? $cliente->ultima_reserva->format('d/m/Y') : '-' }}</td>
+                            <td>
+                                @if($cliente->activo)
+                                    <span class="badge bg-success">Activo</span>
+                                @else
+                                    <span class="badge bg-warning">Inactivo</span>
+                                @endif
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">No hay clientes registrados.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
                 </div>
 
                 <!-- Reservas Module -->

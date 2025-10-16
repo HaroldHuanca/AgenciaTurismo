@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paquetes', function (Blueprint $table) {
+        Schema::create('proveedores', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->text('descripcion')->nullable();
-            $table->decimal('precio', 10, 2);
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
+            $table->string('tipo'); // Ej: "Transporte", "Hotel", "Guía"
+            $table->string('contacto')->nullable(); // Email o teléfono
+            $table->decimal('comision_agencia', 5, 2); // Comisión en porcentaje
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paquetes');
+        Schema::dropIfExists('proveedores');
     }
 };

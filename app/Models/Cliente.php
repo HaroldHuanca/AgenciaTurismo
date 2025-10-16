@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
+    /** @use HasFactory<\Database\Factories\ClienteFactory> */
     use HasFactory;
 
     protected $fillable = [
@@ -14,5 +15,15 @@ class Cliente extends Model
         'apellido',
         'email',
         'telefono',
+        'direccion',
+        'fecha_nacimiento',
+        'preferencias',
+        'estado',
+    ];
+
+    protected $casts = [
+        'preferencias' => 'array',
+        'estado' => 'boolean',
+        'fecha_nacimiento' => 'date',
     ];
 }

@@ -2,9 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Cliente;
+use App\Models\Empleado;
+use App\Models\PaqueteTuristico;
+use App\Models\Destino;
+use App\Models\Proveedor;
+use App\Models\Reserva;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,10 +18,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        \App\Models\Cliente::factory(10)->create();
-        \App\Models\Paquete::factory(5)->create();
-        \App\Models\Venta::factory(15)->create();
+        // Primero creamos usuarios
+        $this->call(UserSeeder::class);
+        
+        // Luego creamos datos independientes
+        Cliente::factory(15)->create();
+        Empleado::factory(5)->create();
+        PaqueteTuristico::factory(8)->create();
+        Proveedor::factory(5)->create();
     }
 }

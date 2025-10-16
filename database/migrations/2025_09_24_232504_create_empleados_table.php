@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ventas', function (Blueprint $table) {
+        Schema::create('empleados', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
-            $table->foreignId('paquete_id')->constrained('paquetes')->onDelete('cascade');
-            $table->integer('cantidad')->default(1);
-            $table->decimal('total', 10, 2);
-            $table->date('fecha_venta');
+            $table->string('nombre');
+            $table->string('rol'); // rol del empleado (e.g., administrador, agente de viajes)
+            $table->string('email')->unique();
+            $table->string('comision'); // puesto del empleado
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('empleados');
     }
 };
