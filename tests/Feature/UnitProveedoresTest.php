@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Proveedor;
 use Illuminate\Support\Facades\Hash;
 
-class UnitTestProveedores extends TestCase
+class UnitProveedoresTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,13 +19,13 @@ class UnitTestProveedores extends TestCase
         $user = User::create([
             'name' => 'Administrador',
             'email' => 'admin@agencia.com',
-            'password' => Hash::make('pasword123'),
+            'password' => Hash::make('password123'),
         ]);
 
         // Simular inicio de sesión
         $response = $this->post('/login', [
             'email' => 'admin@agencia.com',
-            'password' => 'pasword123',
+            'password' => 'password123',
         ]);
 
         // Asegurar que redirige a la ruta de inicio
