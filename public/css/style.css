@@ -124,3 +124,24 @@ footer {
 .btn-action:hover {
     opacity: 1;
 }
+
+#login-page {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+#login-page .col-md-6 {
+    max-width: 480px;
+}
+
+#login-page .card {
+    border-radius: 0.75rem;
+}
+
+#login-page .input-group #togglePassword {
+    border-color: #ced4da;
+}
+
+#login-page .input-group #togglePassword:focus {
+    box-shadow: none;
+}

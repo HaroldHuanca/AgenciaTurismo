@@ -14,7 +14,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
     <!-- Estilos personalizados -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    @if (!Request::routeIs('login'))
+  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+@endif
+@stack('styles')
 </head>
 <body>
     <!-- Navbar -->
